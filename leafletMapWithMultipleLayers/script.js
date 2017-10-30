@@ -24,4 +24,25 @@ var baseLayers = {
 "Landscape": landMap
 };
 
-L.control.layers(baseLayers).addTo(map);
+var coolPlaces = new L.LayerGroup(); // declare a new layer called coolPlaces
+// define a set of markers and polyline and add to coolPlaces layer
+L.marker([-41.29042, 174.78219])
+    .bindPopup('Te Papa').addTo(coolPlaces),
+L.marker([-41.29437, 174.78405])
+    .bindPopup('Embassy Theatre').addTo(coolPlaces),
+L.marker([-41.2895, 174.77803])
+    .bindPopup('Michael Fowler Centre').addTo(coolPlaces),
+L.marker([-41.28313, 174.77736])
+    .bindPopup('Leuven Belgin Beer Cafe').addTo(coolPlaces),
+L.polyline([
+    [-41.28313, 174.77736],
+    [-41.2895, 174.77803],
+    [-41.29042, 174.78219],
+    [-41.29437, 174.78405]
+    ]
+    ).addTo(coolPlaces);
+var overlays = {
+    "Interesting places": coolPlaces
+};
+
+L.control.layers(baseLayers,overlays).addTo(map); // add both base and overlay layer to the map 
