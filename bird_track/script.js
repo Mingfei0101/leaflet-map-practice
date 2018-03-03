@@ -19,9 +19,10 @@ $(function() {
                 var longitude = field.longitude;
                 var locations = [field.latitude, field.longitude];
                 var active = field.active;
-                var marker = new L.Marker(locations)
+                if (active ===true){
+                    var marker = new L.Marker(locations)
                     .bindPopup("station: " + reader)
-                    .addTo(map);
+                    .addTo(map);}
                 });               
             });
         });
