@@ -32,13 +32,14 @@ $(function() {
                 var lon = l.longitude;
                 var location = [lat, lon];
                 var active = l.active;
+                var start = l.start_timestamp;
                 if (active == true){
                     $.getJSON("https://head.ouetag.org/api/etag/tag_reads/?search&reader="+reader, function(get){
                     var count = get.count;
                     var time = get.tag_timestamp;
                     var tag = get.tag;
                     var marker = new L.Marker(location)
-                    .bindPopup("station: " + reader +'<br>'+"count: " +count)
+                    .bindPopup("station: " + reader +'<br>'+"count: " +count+'<br>'+"start from: "+start)
                     .addTo(map);
                 })
 
