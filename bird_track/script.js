@@ -39,7 +39,7 @@ $(function() {
                     var time = get.tag_timestamp;
                     var tag = get.tag;
                     var marker = new L.Marker(location)
-                    .bindPopup("station: " + reader +'<br>'+"count: " +count+'<br>'+"start from: "+start)
+                    .bindPopup("station: " + reader +'<br>'+"count: " +count+'<br>'+"starts from: "+start)
                     .addTo(map);
                 })
 
