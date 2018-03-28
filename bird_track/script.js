@@ -3,11 +3,37 @@ $(function() {
 
     //get location
       // Setup leaflet map
-      var map = new L.Map('map');
+    
+      //var basemapLayer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/github.map-xgq2svrz/{z}/{x}/{y}.png');
+      // add feature to switch between tile layers
+      var mapbox_url = 'http://{s}.tiles.mapbox.com/v3/github.map-xgq2svrz/{z}/{x}/{y}.png';
+      var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+      var landUrl = 'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png';
+      var tonerUrl = 'http://tile.stamen.com/toner/{z}/{x}/{y}.png';
+      var terrainUrl='http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg';
+      var watercolorUrl ='http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg';
+      
+      var mapbox_map = L.tileLayer(mapbox_url);
+      var osmMap = L.tileLayer(osmUrl);
+      var landMap = L.tileLayer(landUrl);
+      var tonerMap = L.tileLayer(tonerUrl);
+      var terrainMap=L.tileLayer(terrainUrl);
+      var watercolorMap= L.tileLayer(watercolorUrl);
+
+      var map = new L.Map('map',{layers:[osmMap]}); // set the default layer to load
+
+      var baseLayers = {  // all the layer options
+        "mapbox": mapbox_map,
+        "Open Street": osmMap,
+        "Landscape": landMap,
+        "Watercolor": watercolorMap,
+        "Toner": tonerMap,
+        "Terrain": terrainMap
+    };
+        // Adds the background layer to the map
+        L.control.layers(baseLayers).addTo(map);
   
-      var basemapLayer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/github.map-xgq2svrz/{z}/{x}/{y}.png');
-  
-      // Center map and default zoom level
+      // Center map and set default zoom level
        //get the location from web browser if user agreed, otherwise use default settings; 
        // works in Chrome(slow) !!!!! not in Safari!!!!!
       if (navigator.geolocation.getCurrentPosition(function(position){
@@ -15,9 +41,6 @@ $(function() {
       }));
       else(map.setView([0, 0], 0)); // this is the default setting
   
-  
-      // Adds the background layer to the map
-      map.addLayer(basemapLayer);
   
       // create slider
       /*var slider = L.timelineSliderControl({
