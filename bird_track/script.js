@@ -49,17 +49,39 @@ $(function() {
           }
       });*/
      // map.addControl(slider);
+     
+     /*
+     L.Control.SliderControl = L.Control.extend({
+    options: {
+        layers: null,
+        timeAttribute: 'time', // 'time' in geoJson file, in etag it is called "timestamp"
+        startTimeIdx: 0,    // start looking for timestring at index[0]
+        timeStrLength: 19,  // the size of yyyy-mm-dd hh:mm:ss i.e. 19 
+        maxValue: -1,
+        minValue: 0,
+        showAllOnStart: true,
+        markers: null,
+        range: true,
+        alwaysShowDate : true,
+
+    }
+     */
+     
+      /*var legend = L.control({position: "topleft"}); // might be useful in the future
+       legend.onAdd = function(map){
+       };
+       */
       var locations = [];
       
       $(document).ready(function(){
           $.getJSON("https://head.ouetag.org/api/etag/reader_location/", function(result){
-              $.each(result.results, function(i,l){
-                  var reader = l.reader;
-                  var lat = l.latitude;
-                  var lon = l.longitude;
+              $.each(result.results, function(i,l){ // playback function
+                  var reader = l.reader;  // get reader name using dot notation
+                  var lat = l.latitude;  // get latitude
+                  var lon = l.longitude;  // get longitude
                   var location = [lat, lon];
-                  var active = l.active;
-                  var start = l.start_timestamp;
+                  var active = l.active;  // boolean type data
+                  var start = l.start_timestamp;  //***look into the length of timestamp***
                   if (active == true){ //select only the active reader  
                       locations.push(location);
                       $.getJSON("https://head.ouetag.org/api/etag/tag_reads/?search&reader="+reader, function(get){
